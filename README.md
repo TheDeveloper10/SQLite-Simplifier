@@ -10,7 +10,7 @@ System.Data.SQLite <- nuget package
 ```
 ### WORKFLOW
 There are many more things you can do with this Simplifier than in this example
-```
+```csharp
 SQLiteSimplifier simplifier = new SQLiteSimplifier();
 
 // Creating a database
