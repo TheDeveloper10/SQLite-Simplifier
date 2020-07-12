@@ -27,6 +27,57 @@ using System.Data;
 
 namespace Simplifier.SQLite
 {
+    public class DBValue
+    {
+        public string columnName = "";
+        public object value = null;
+    }
+
+    public class DBColumn
+    {
+        public enum BasicTypes
+        {
+            INTEGER = 0,
+            TEXT = 1,
+            BLOB = 2,
+            REAL = 3,
+            NUMERIC = 4
+        };
+
+        public DBColumn() { }
+
+        public string name = "";
+        public string columnTypeStr = "";
+        public BasicTypes columnType = BasicTypes.TEXT;
+        public bool notNull = false;
+        public bool primaryKey = false;
+        public bool autoIncrement = false;
+        public bool unique = false;
+
+        /// <summary>
+        /// Converts the info for this column to the following string format (example):
+        /// Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+        /// </summary>
+        public string SQLString()
+        {
+            StringBuilder strBuilder = new StringBuilder(name);
+
+            strBuilder.Append(" ");
+            strBuilder.Append(columnType.ToString());
+
+            if (notNull)
+                strBuilder.Append(" NOT NULL");
+            if (primaryKey)
+                strBuilder.Append(" PRIMARY KEY");
+            if (autoIncrement)
+                strBuilder.Append(" AUTOINCREMENT");
+            if (unique)
+                strBuilder.Append(" UNIQUE");
+
+            return strBuilder.ToString();
+        }
+    }
+    
     /// <summary>
     /// This class simplifies the basic work with SQLite.
     /// If you want to send more specified queries and/or this class doesn't have something you need you can still use ExecuteQuery/ExecuteReader/ExecuteScalar;
