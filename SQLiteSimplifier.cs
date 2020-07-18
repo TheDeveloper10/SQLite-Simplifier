@@ -116,7 +116,7 @@ namespace Simplifier.SQLite
         public void Dispose()
         {
             if (conn == null)
-                throw new Exception("You cannot close a database that is not opened!");
+                throw new Exception("You cannot dispose a database that is not opened!");
             conn.Dispose();
         }
 
